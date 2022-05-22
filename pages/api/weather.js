@@ -1,20 +1,10 @@
-
-
-
-
-var key = "e6bbc5c9664d655d989f4372b55a9577"
-
-
-
+const key = `${process.env.NEXT_PUBLIC_WEATHER_KEY}`
 export async function GetWeatherHere(_callback) {
     if (navigator.geolocation) {
         const position = await getCurrentPosition()
         var url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${key}&units=metric`
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", url,false);
-        xmlhttp.send(null);
-        var response = xmlhttp.responseText;
-        _callback(response);
+        
+        _callback(await getWeather(url));
     } else {
         alert("Geolocation is not supported by this browser.");
     }
@@ -27,4 +17,9 @@ async function getCurrentPosition() {
             error => reject(error)
         )
     })
+}
+async function getWeather(url) {
+    let response = await fetch(url);
+    let data = await response.json();
+    return data;
 }

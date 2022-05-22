@@ -51,14 +51,13 @@ export default function Home() {
       }
       if(transcript =="what is the weather") {
          GetWeatherHere(function (response) {
-           var weather = JSON.parse(response)
-           speak({text: "in " + weather.name +" it is " + weather.main.temp + " degrees celsius with " + weather.weather[0].main})
+           var weather = response
+           speak({text: "in " + weather.name +" it is " + Math.round(weather.main.temp) + " degrees celsius with " + weather.weather[0].main})
          });
       }
     }
 
   }, [listening])
-  
   return (
     <>
     
