@@ -1,0 +1,43 @@
+{
+    "coord": {
+        "lon": -0.0358,
+        "lat": 51.9474
+    },
+    "weather": [
+        {
+            "id": 801,
+            "main": "Clouds",
+            "description": "few clouds",
+            "icon": "02d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 20,
+        "feels_like": 19.49,
+        "temp_min": 18.91,
+        "temp_max": 21.41,
+        "pressure": 1013,
+        "humidity": 55
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 4.12,
+        "deg": 170
+    },
+    "clouds": {
+        "all": 20
+    },
+    "dt": 1653216583,
+    "sys": {
+        "type": 2,
+        "id": 2007816,
+        "country": "GB",
+        "sunrise": 1653191824,
+        "sunset": 1653249410
+    },
+    "timezone": 3600,
+    "id": 2654323,
+    "name": "Buntingford",
+    "cod": 200
+}
