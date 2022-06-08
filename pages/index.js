@@ -98,5 +98,12 @@ export default function Home() {
         SetLights(bridgeIP,lightid,false);
       }
     }
+    if(transcript.includes("what is the time")) {
+      var d = new Date()
+      var hours = d.getHours();
+      var minutes = d.getMinutes();
+      var time = hours + "," + minutes;
+      speak({text: "it is " + time});
+    }
   }
 }
