@@ -1,5 +1,4 @@
-
-
+const key = `${process.env.NEXT_PUBLIC_HUE_KEY}`
 export function GetBridgeIp() {
     var xmlhttp = new XMLHttpRequest();
     var theUrl = "https://discovery.meethue.com/";
@@ -11,7 +10,7 @@ export function GetBridgeIp() {
 }
 export function SetLights(ip,lightId,on) {
     // generates the url for the api call
-    var theUrl = "http://"+ ip + "/api/kHwEZAGRotvQ1c3Ptmm8mskNmIya0GnRO0Uw9dbc/lights/" + lightId +"/state";
+    var theUrl = "http://"+ ip + "/api/" + key + "/lights/" + lightId +"/state";
     //sends the command to the bridge
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("PUT", theUrl, true);

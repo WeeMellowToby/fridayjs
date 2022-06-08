@@ -88,6 +88,7 @@ export default function Home() {
         var lightIndex = lightnames.indexOf(light)
         var lightid = lights[lightIndex].id;
         SetLights(bridgeIP,lightid,true);
+        speak({text: "turning on the light" + light})
       }
     }
     if(transcript.includes("turn off")) {
@@ -96,6 +97,7 @@ export default function Home() {
         var lightIndex = lightnames.indexOf(light)
         var lightid = lights[lightIndex].id;
         SetLights(bridgeIP,lightid,false);
+        speak({text: "turning off the light" + light})
       }
     }
     if(transcript.includes("what is the time")) {
