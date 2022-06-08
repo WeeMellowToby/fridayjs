@@ -1,20 +1,20 @@
 
 
-var bridgeIP;
-export function Initialize() {
+export function GetBridgeIp() {
     var xmlhttp = new XMLHttpRequest();
     var theUrl = "https://discovery.meethue.com/";
-    xmlhttp.open("GET", theUrl);
+    xmlhttp.open("GET", theUrl, true);
     xmlhttp.send(null);
-    var response = JSON.parse(xmlhttp.responseText);
-    bridgeIP = response.internalipaddress;
+    var response = xmlhttp.responseText;
+    return response[0].internalipaddress;
     
 }
-export function SetLights(light,on) {
+export function SetLights(ip,lightId,on) {
+    // generates the url for the api call
+    var theUrl = "http://"+ ip + "/api/kHwEZAGRotvQ1c3Ptmm8mskNmIya0GnRO0Uw9dbc/lights/" + lightId +"/state";
+    //sends the command to the bridge
     var xmlhttp = new XMLHttpRequest();
-    var theUrl = "http://"+ bridgeIP + "/api/kHwEZAGRotvQ1c3Ptmm8mskNmIya0GnRO0Uw9dbc/lights/" + light +"/state";
-    xmlhttp.open("PUT", theUrl);
+    xmlhttp.open("PUT", theUrl, true);
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlhttp.send(JSON.stringify({ "on": on }));
-    console.log("set light status to "+ on);
 }
