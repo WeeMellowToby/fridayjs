@@ -44,6 +44,7 @@ export default function Home() {
   }, [listening])
   useEffect(() => { 
     var newlights = JSON.parse(localStorage.getItem('Friday.lights'))
+    if(newlights != null) {
     // gets the names of all the lights and puts them in an array
     var newlightnames = []
     for(var i = 0; i < newlights.length; i++) {
@@ -53,6 +54,7 @@ export default function Home() {
     setLightnames(newlightnames)
     // sets the bridge ip
     //bridgeIP = GetBridgeIp();
+    }
   }, [])
   return (
     <>
