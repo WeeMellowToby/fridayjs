@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
-import LightList from '../components/LightList'
-const LOCAL_STORAGE_KEY = 'Friday.lights'
+import LightList from './LightList'
+
 
 export default function Lights() {
   const [lights,setLights] = useState([])
   const lightNameRef = useRef()
   const lightIdRef = useRef()
+  const LOCAL_STORAGE_KEY = process.env.NEXT_PUBLIC_LIGHT_STORAGE
 // get from local storage
 useEffect (() => {
 const storedLights = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));

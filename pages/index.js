@@ -3,9 +3,13 @@ import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition"
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { GetWeatherHere } from "./api/weather";
 import { GetBridgeIp,SetLights } from "./api/hue";
+import Lights from "../components/Lights/Lights";
 export default function Home() {
   const [lights,setLights] = useState([])
   const [lightnames,setLightnames] = useState([])
+  const [timetable,setTimetable] = useState([])
+  const aliases = require('./api/aliases.json')
+
   const {
     transcript,
     listening,
@@ -43,7 +47,7 @@ export default function Home() {
     }
   }, [listening])
   useEffect(() => { 
-    var newlights = JSON.parse(localStorage.getItem('Friday.lights'))
+    var newlights = JSON.parse(localStorage.getItem(process.env.NEXT_PUBLIC_LIGHT_STORAGE))
     if(newlights != null) {
     // gets the names of all the lights and puts them in an array
     var newlightnames = []
@@ -55,7 +59,12 @@ export default function Home() {
     // sets the bridge ip
     //bridgeIP = GetBridgeIp();
     }
+    var newtimetable = JSON.parse(localStorage.getItem(process.env.NEXT_PUBLIC_TIMETABLE_STORAGE))
+    if(newtimetable != null) setTimetable(newtimetable); else setTimetable([])
   }, [])
+
+
+
   return (
     <>
     
@@ -63,13 +72,60 @@ export default function Home() {
     <p>Microphone: {listening ? 'on' : 'off'}</p>
     <button onClick={SpeechRecognition.startListening}><div className="rounded-full  w-60 h-60 bg-cyan-300"></div></button>
     <p>{transcript}</p>
-
-    
     </div>
     </>
   )
+  function WhichAliasWasSaid(command,aliases) {
+    for(var i = 0; i < aliases.length; i++) {
+      if(command.includes(aliases[i])) {
+        return aliases[i];
+      }
+    }
+    return null
+  }
   function commandSaid(transcript) {
-    if(transcript == "what is the date") {
+
+    if(aliases.weather.includes(transcript)) {
+       GetWeatherHere(function (response) {
+         var weather = response
+         speak({text: "in " + weather.name +" it is " + Math.round(weather.main.temp) + " degrees celsius with " + weather.weather[0].main})
+       });
+    }
+    // light commands
+    // turn on the light
+    if(WhichAliasWasSaid(transcript,aliases.turnOnLight) != null) {
+      var light = transcript.split(WhichAliasWasSaid(transcript,aliases.turnOnLight) + " ")[1]
+      if(lightnames.includes(light)) {
+        var lightIndex = lightnames.indexOf(light)
+        var lightid = lights[lightIndex].id;
+        SetLights(bridgeIP,lightid,true);
+        speak({text: "turning on the light" + light})
+      } else {
+        speak({text: "I don't know that light"})
+      }
+    }
+    // turn off the light
+    if(WhichAliasWasSaid(transcript,aliases.turnOffLight) != null) {
+      console.log("turning off the light")
+      var light = transcript.split(WhichAliasWasSaid(transcript,aliases.turnOffLight) + " ")[1]
+      if(lightnames.includes(light)) {
+        var lightIndex = lightnames.indexOf(light)
+        var lightid = lights[lightIndex].id;
+        SetLights(bridgeIP,lightid,false);
+        speak({text: "turning off the light" + light})
+      } else {
+        speak({text: "I don't know that light"})
+      }
+    }
+    // date and time commands
+    if(aliases.time.includes(transcript)) {
+      var d = new Date()
+      var hours = d.getHours();
+      var minutes = d.getMinutes();
+      var time = hours + "," + minutes;
+      speak({text: "it is " + time});
+    }
+    if(aliases.date.includes(transcript)) {
       var d = new Date()
       var date = d.getDate();
       const monthName = months[d.getMonth()]
@@ -77,37 +133,13 @@ export default function Home() {
       var year = d.getFullYear();
       speak({text: "it is" + dayName + "the" + date + "of" + monthName + year});
     }
-    if(transcript =="what is the weather") {
-       GetWeatherHere(function (response) {
-         var weather = response
-         speak({text: "in " + weather.name +" it is " + Math.round(weather.main.temp) + " degrees celsius with " + weather.weather[0].main})
-       });
-    }
-    // turn on light command
-    if(transcript.includes("turn on")) {
-      var light = transcript.split("turn on ")[1]
-      if(lightnames.includes(light)) {
-        var lightIndex = lightnames.indexOf(light)
-        var lightid = lights[lightIndex].id;
-        SetLights(bridgeIP,lightid,true);
-        speak({text: "turning on the light" + light})
-      }
-    }
-    if(transcript.includes("turn off")) {
-      var light = transcript.split("turn off ")[1]
-      if(lightnames.includes(light)) {
-        var lightIndex = lightnames.indexOf(light)
-        var lightid = lights[lightIndex].id;
-        SetLights(bridgeIP,lightid,false);
-        speak({text: "turning off the light" + light})
-      }
-    }
-    if(transcript.includes("what is the time")) {
+    // timetable commands
+    if(aliases.lessonsToday.includes(transcript)) {
       var d = new Date()
-      var hours = d.getHours();
-      var minutes = d.getMinutes();
-      var time = hours + "," + minutes;
-      speak({text: "it is " + time});
+      var date = d.getDate();
+      var day = d.getDay();
+      var lessons = timetable[day - 1]
+      speak({text: "today your lessons are: " + lessons.LessonOne + "," + lessons.LessonTwo + "," + lessons.LessonThree + "," + lessons.LessonFour + " and " + lessons.LessonFive});
     }
   }
 }

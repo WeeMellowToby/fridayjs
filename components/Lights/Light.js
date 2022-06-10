@@ -6,7 +6,7 @@ export default function Light({light,removeLight}) {
     }
   return (
     <div>
-        name: {light.name} id: {light.id} <button onClick={handleLightRemove}><RiDeleteBin5Fill/></button>
+        name: {light.name} id: {light.id}<button onClick={handleLightRemove}><RiDeleteBin5Fill/></button>
         
     </div>
   )
