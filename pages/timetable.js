@@ -43,7 +43,7 @@ function timetable() {
         setTimetable(newTimeTable);
     }
   return (
-    <div>
+    <div className='ml-20 mt-4'>
         <table>
             <thead>
                 <tr>
@@ -67,7 +67,7 @@ function timetable() {
             </tr>
             </tbody>
         </table>
-        <button onClick={addDay}>
+        <button onClick={addDay} className="text-center">
              Add Day
         </button>
 

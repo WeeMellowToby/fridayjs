@@ -3,7 +3,6 @@ import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition"
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { GetWeatherHere } from "./api/weather";
 import { GetBridgeIp,SetLights } from "./api/hue";
-import Lights from "../components/Lights/Lights";
 export default function Home() {
   const [lights,setLights] = useState([])
   const [lightnames,setLightnames] = useState([])
@@ -67,11 +66,12 @@ export default function Home() {
 
   return (
     <>
-    
+
     <div className='flex flex-col items-center justify-center w-full h-screen'>
     <p>Microphone: {listening ? 'on' : 'off'}</p>
     <button onClick={SpeechRecognition.startListening}><div className="rounded-full  w-60 h-60 bg-cyan-300"></div></button>
     <p>{transcript}</p>
+    
     </div>
     </>
   )

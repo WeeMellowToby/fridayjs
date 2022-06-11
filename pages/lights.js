@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import LightList from './LightList'
+import LightList from '../components/Lights/LightList'
 
 
 export default function Lights() {
@@ -34,14 +34,26 @@ function removeLight(id) {
   }
   // retruns the list of lights and a form
   return (
-    <>
+    <div className='ml-20 mt-4'>
     
     <label>Light name</label>
     <input ref={lightNameRef} type="text" className='border-2'/>
     <label>Light id</label>
     <input ref={lightIdRef} type="number" className='border-2'/>
     <button onClick={handleAddLight}>Add Light</button>
-    <LightList lights={lights} removeLight={removeLight}/>
-    </>
+    <table>
+        <thead>
+            <tr>
+                <th className='border-4'>Id</th>
+                <th className='border-4'>Name</th>
+                <th className='border-4'>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        <LightList lights={lights} removeLight={removeLight}/>
+        </tbody>
+    </table>
+    
+    </div>
   )
 }
