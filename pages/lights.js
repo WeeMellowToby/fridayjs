@@ -46,7 +46,6 @@ function removeLight(id) {
             <tr>
                 <th className='border-4'>Id</th>
                 <th className='border-4'>Name</th>
-                <th className='border-4'>Delete</th>
             </tr>
         </thead>
         <tbody>

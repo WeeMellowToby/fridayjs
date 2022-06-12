@@ -6,7 +6,7 @@ export default function Light({light,removeLight}) {
     }
   return (
     <>
-        <td className='border-4'>{light.id}</td><td className='border-4'>{light.name} </td><td className='flex justify-center border-4 margin-4'><button onClick={handleLightRemove}><RiDeleteBin5Fill size="16"/></button></td>
+        <td className='border-4'>{light.id}</td><td className='border-4'>{light.name} <button onClick={handleLightRemove} className='pt-1'><RiDeleteBin5Fill size="16"/></button></td>
         
     </>
   )

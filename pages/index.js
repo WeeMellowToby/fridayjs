@@ -3,41 +3,19 @@ import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition"
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { GetWeatherHere } from "./api/weather";
 import { GetBridgeIp,SetLights } from "./api/hue";
+import Spotify from "../components/spotify/Spotify";
 export default function Home() {
   const [lights,setLights] = useState([])
   const [lightnames,setLightnames] = useState([])
   const [timetable,setTimetable] = useState([])
-  const aliases = require('./api/aliases.json')
-
+  const aliases = require('../lib/aliases.json')
+  const Date = require('../lib/Date.json')
   const {
     transcript,
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ]
-  const days = [
-    'Sunday',
-    'Monday',
-    'Tueday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-  ]
   const { speak } = useSpeechSynthesis();
   var bridgeIP = "192.168.101.53";
   useEffect(() => {
@@ -71,7 +49,7 @@ export default function Home() {
     <p>Microphone: {listening ? 'on' : 'off'}</p>
     <button onClick={SpeechRecognition.startListening}><div className="rounded-full  w-60 h-60 bg-cyan-300"></div></button>
     <p>{transcript}</p>
-    
+    <Spotify/>
     </div>
     </>
   )
@@ -128,8 +106,8 @@ export default function Home() {
     if(aliases.date.includes(transcript)) {
       var d = new Date()
       var date = d.getDate();
-      const monthName = months[d.getMonth()]
-      const dayName = days[d.getDay()]
+      const monthName = Date.months[d.getMonth()]
+      const dayName = Date.days[d.getDay()]
       var year = d.getFullYear();
       speak({text: "it is" + dayName + "the" + date + "of" + monthName + year});
     }
