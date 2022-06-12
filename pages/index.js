@@ -3,7 +3,6 @@ import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition"
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { GetWeatherHere } from "./api/weather";
 import { GetBridgeIp,SetLights } from "./api/hue";
-import Spotify from "../components/spotify/Spotify";
 export default function Home() {
   const [lights,setLights] = useState([])
   const [lightnames,setLightnames] = useState([])
@@ -49,7 +48,6 @@ export default function Home() {
     <p>Microphone: {listening ? 'on' : 'off'}</p>
     <button onClick={SpeechRecognition.startListening}><div className="rounded-full  w-60 h-60 bg-cyan-300"></div></button>
     <p>{transcript}</p>
-    <Spotify/>
     </div>
     </>
   )
