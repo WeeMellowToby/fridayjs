@@ -3,6 +3,7 @@ import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition"
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { GetWeatherHere } from "./api/weather";
 import { GetBridgeIp,SetLights } from "./api/hue";
+import { getLatestNews } from "./api/news";
 export default function Home() {
   const [lights,setLights] = useState([])
   const [lightnames,setLightnames] = useState([])
@@ -117,5 +118,15 @@ export default function Home() {
       var lessons = timetable[day - 1]
       speak({text: "today your lessons are: " + lessons.LessonOne + "," + lessons.LessonTwo + "," + lessons.LessonThree + "," + lessons.LessonFour + " and " + lessons.LessonFive});
     }
+    // news commands
+    if(aliases.news.includes(transcript)) {
+      NewsCommand();
+    }
+
+  }
+  async function NewsCommand() {
+    var news = await getLatestNews()
+    var differentlyPunctuatedTitle = news[0].title.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,",,,");
+    speak({text: "the latest news is: ..." + differentlyPunctuatedTitle + "..."});
   }
 }

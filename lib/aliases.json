@@ -30,5 +30,11 @@
     "lessonsToday": [
         "what are my lessons",
         "what are my lessons today"
+    ],
+    "news": [
+        "what is the news",
+        "what's the news",
+        "what is the news today",
+        "what's the news today"
     ]
 }
