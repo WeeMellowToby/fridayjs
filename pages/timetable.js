@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useEffect } from 'react'
 import { uid } from 'react-uid'
 import Table from '../components/timetable/Table'
-function timetable() {
+function Timetable() {
     const [timetable, setTimetable] = React.useState([])
     const LOCAL_STORAGE_KEY = process.env.NEXT_PUBLIC_TIMETABLE_STORAGE
     var DayNameRef = useRef()
@@ -47,31 +47,32 @@ function timetable() {
         <table>
             <thead>
                 <tr>
-                    <th className='border-4'>Day</th>
-                    <th className='border-4'>Lesson 1</th>
-                    <th className='border-4'>Lesson 2</th>
-                    <th className='border-4'>Lesson 3</th>
-                    <th className='border-4'>Lesson 4</th>
-                    <th className='border-4'>Lesson 5</th>
+                    <th className='border-4 border-orange-400'>Day</th>
+                    <th className='border-4 border-orange-400'>Lesson 1</th>
+                    <th className='border-4 border-orange-400'>Lesson 2</th>
+                    <th className='border-4 border-orange-400'>Lesson 3</th>
+                    <th className='border-4 border-orange-400'>Lesson 4</th>
+                    <th className='border-4 border-orange-400'>Lesson 5</th>
                 </tr>
             </thead>
             <tbody>
             <Table timetable={timetable} removeDay={removeDay}/>
             <tr>
-            <td className='border-4'><input type="text" placeholder="day" ref={DayNameRef}/></td>
-            <td className='border-4'><input type="text" placeholder="Lesson 1" ref={LessonOneRef}/></td>
-            <td className='border-4'><input type="text" placeholder="Lesson 2" ref={LessonTwoRef}/></td>
-            <td className='border-4'><input type="text" placeholder="Lesson 3" ref={LessonThreeRef}/></td>
-            <td className='border-4'><input type="text" placeholder="Lesson 4" ref={LessonFourRef}/></td>
-            <td className='border-4'><input type="text" placeholder="Lesson 5" ref={LessonFiveRef}/></td>
+            <td className='border-4 border-orange-400'><input type="text" placeholder="day" ref={DayNameRef} className='bg-gray-700 text-white'/></td>
+            <td className='border-4 border-orange-400'><input type="text" placeholder="Lesson 1" ref={LessonOneRef} className='bg-gray-700 text-white'/></td>
+            <td className='border-4 border-orange-400'><input type="text" placeholder="Lesson 2" ref={LessonTwoRef} className='bg-gray-700 text-white'/></td>
+            <td className='border-4 border-orange-400'><input type="text" placeholder="Lesson 3" ref={LessonThreeRef} className='bg-gray-700 text-white'/></td>
+            <td className='border-4 border-orange-400'><input type="text" placeholder="Lesson 4" ref={LessonFourRef} className='bg-gray-700 text-white'/></td>
+            <td className='border-4 border-orange-400'><input type="text" placeholder="Lesson 5" ref={LessonFiveRef} className='bg-gray-700 text-white'/></td>
             </tr>
             </tbody>
         </table>
-        <button onClick={addDay} className="text-center">
+        <div className="content-center">
+        <button onClick={addDay} >
              Add Day
         </button>
-
+        </div>
     </div>
   )
 }
-export default timetable
+export default Timetable

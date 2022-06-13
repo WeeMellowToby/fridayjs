@@ -12,8 +12,8 @@ body {
   .sidebar-icon {
     @apply relative flex items-center justify-center
     h-12 w-12 mt-2 mb-2 mx-auto shadow-lg
-    bg-gray-800 text-cyan-300
-    hover:bg-cyan-300 hover:text-gray-800
+    bg-gray-800 text-orange-400
+    hover:bg-orange-400 hover:text-gray-800
     transition-all duration-300 ease-linear;
   }
   .sidebar-tooltip {
@@ -22,5 +22,8 @@ body {
     text-white bg-gray-900
     text-xs font-bold
     transition-all duration-100 scale-0 origin-left;
+  }
+  body {
+    @apply bg-zinc-700 text-white;
   }
 }

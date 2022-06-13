@@ -6,12 +6,12 @@ function Day({day, removeDay}) {
     }
   return (
     <tr>
-        <td className='border-4'>{day.DayName}</td>
-        <td className='border-4'>{day.LessonOne}</td>
-        <td className='border-4'>{day.LessonTwo}</td>
-        <td className='border-4'>{day.LessonThree}</td>
-        <td className='border-4'>{day.LessonFour}</td>
-        <td className='border-4'>{day.LessonFive} &nbsp;<button onClick={removeToday}><RiDeleteBin5Fill/></button></td>
+        <td className='border-4 border-orange-400'>{day.DayName}</td>
+        <td className='border-4 border-orange-400'>{day.LessonOne}</td>
+        <td className='border-4 border-orange-400'>{day.LessonTwo}</td>
+        <td className='border-4 border-orange-400'>{day.LessonThree}</td>
+        <td className='border-4 border-orange-400'>{day.LessonFour}</td>
+        <td className='border-4 border-orange-400'>{day.LessonFive} &nbsp;<button onClick={removeToday}><RiDeleteBin5Fill/></button></td>
     </tr>
   )
 }

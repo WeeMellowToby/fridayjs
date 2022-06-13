@@ -4,12 +4,14 @@ import { useSpeechSynthesis } from 'react-speech-kit';
 import { GetWeatherHere } from "./api/weather";
 import { GetBridgeIp,SetLights } from "./api/hue";
 import { getLatestNews } from "./api/news";
+import { Play,Pause } from "./api/sonos";
 export default function Home() {
   const [lights,setLights] = useState([])
   const [lightnames,setLightnames] = useState([])
   const [timetable,setTimetable] = useState([])
+  const [news,setNews] = useState([])
   const aliases = require('../lib/aliases.json')
-  const Date = require('../lib/Date.json')
+  const Dates = require('../lib/Date.json')
   const {
     transcript,
     listening,
@@ -22,7 +24,9 @@ export default function Home() {
     if(listening == false) {
       commandSaid(transcript);
     }
+    
   }, [listening])
+  // on page load
   useEffect(() => { 
     var newlights = JSON.parse(localStorage.getItem(process.env.NEXT_PUBLIC_LIGHT_STORAGE))
     if(newlights != null) {
@@ -38,17 +42,32 @@ export default function Home() {
     }
     var newtimetable = JSON.parse(localStorage.getItem(process.env.NEXT_PUBLIC_TIMETABLE_STORAGE))
     if(newtimetable != null) setTimetable(newtimetable); else setTimetable([])
+    
   }, [])
-
-
 
   return (
     <>
 
     <div className='flex flex-col items-center justify-center w-full h-screen'>
     <p>Microphone: {listening ? 'on' : 'off'}</p>
-    <button onClick={SpeechRecognition.startListening}><div className="rounded-full  w-60 h-60 bg-cyan-300"></div></button>
+    <button onClick={SpeechRecognition.startListening} className="animate-spin-slow">{/*<div className="rounded-full  w-60 h-60 bg-cyan-300"></div> */}
+    <svg width="250" height="250" stroke="url(#gradient)">
+      <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#fb923c" />
+          <stop offset="25%" stopColor="#c2410c" />
+          <stop offset="50%" stopColor="#c2410c" />
+          <stop offset="75%" stopColor="#fb923c" />
+          <stop offset="100%" stopColor="#fb923c" />
+        </linearGradient>
+      </defs>
+     <circle cx="50%" cy="50%" r="100" strokeWidth="4" fill="none" />
+      <circle cx="50%" cy="50%" r="75" strokeWidth="2" fill="none"/>
+     
+    </svg>
+      </button>
     <p>{transcript}</p>
+    {news.length ? <button onClick={ReadMore}>Read More</button> : null}
     </div>
     </>
   )
@@ -105,15 +124,14 @@ export default function Home() {
     if(aliases.date.includes(transcript)) {
       var d = new Date()
       var date = d.getDate();
-      const monthName = Date.months[d.getMonth()]
-      const dayName = Date.days[d.getDay()]
+      const monthName = Dates.months[d.getMonth()]
+      const dayName = Dates.days[d.getDay()]
       var year = d.getFullYear();
       speak({text: "it is" + dayName + "the" + date + "of" + monthName + year});
     }
     // timetable commands
     if(aliases.lessonsToday.includes(transcript)) {
       var d = new Date()
-      var date = d.getDate();
       var day = d.getDay();
       var lessons = timetable[day - 1]
       speak({text: "today your lessons are: " + lessons.LessonOne + "," + lessons.LessonTwo + "," + lessons.LessonThree + "," + lessons.LessonFour + " and " + lessons.LessonFive});
@@ -122,11 +140,23 @@ export default function Home() {
     if(aliases.news.includes(transcript)) {
       NewsCommand();
     }
-
+    // sonos
+    if(aliases.playMusic.includes(transcript)) {
+      Play("House1");
+    }
+    if(aliases.stopMusic.includes(transcript)) {
+      Pause("House1");
+    }
   }
   async function NewsCommand() {
-    var news = await getLatestNews()
-    var differentlyPunctuatedTitle = news[0].title.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,",,,");
-    speak({text: "the latest news is: ..." + differentlyPunctuatedTitle + "..."});
+    var Newnews = await getLatestNews()
+    setNews(Newnews);
+    var differentlyPunctuatedTitle = Newnews[0].title.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,",,,");
+    speak({text: "the latest news is: ..." + differentlyPunctuatedTitle + "... Would you like to read it?"});
   }
+  function ReadMore() {
+    console.log(news[0].content)
+    speak({text: news[0].content})
+  }
+  
 }

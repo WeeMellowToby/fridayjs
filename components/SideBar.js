@@ -2,6 +2,7 @@ import React from 'react'
 import { AiFillHome } from 'react-icons/ai'
 import {BsFillLightbulbFill} from 'react-icons/bs'
 import {MdOutlineAccessTimeFilled} from 'react-icons/md'
+import {FaMusic} from 'react-icons/fa'
 import Link from 'next/link'
 function SideBar() {
   return (
@@ -19,6 +20,11 @@ function SideBar() {
       <Link href='/timetable'>
         <a>
         <SideBarIcon icon={<MdOutlineAccessTimeFilled size="58"/>} text="add/edit your school timetable"/>
+        </a>
+      </Link>
+      <Link href='/music'>
+        <a>
+        <SideBarIcon icon={<FaMusic size="58"/>} text="control your music using sonos"/>
         </a>
       </Link>
     </div>

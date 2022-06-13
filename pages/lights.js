@@ -37,15 +37,15 @@ function removeLight(id) {
     <div className='ml-20 mt-4'>
     
     <label>Light name</label>
-    <input ref={lightNameRef} type="text" className='border-2'/>
+    <input ref={lightNameRef} type="text" className='border-2 border-orange-400'/>
     <label>Light id</label>
-    <input ref={lightIdRef} type="number" className='border-2'/>
+    <input ref={lightIdRef} type="number" className='border-2 border-orange-400'/>
     <button onClick={handleAddLight}>Add Light</button>
     <table>
         <thead>
             <tr>
-                <th className='border-4'>Id</th>
-                <th className='border-4'>Name</th>
+                <th className='border-4 border-orange-400'>Id</th>
+                <th className='border-4 border-orange-400'>Name</th>
             </tr>
         </thead>
         <tbody>

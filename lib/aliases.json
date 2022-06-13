@@ -36,5 +36,15 @@
         "what's the news",
         "what is the news today",
         "what's the news today"
+    ],
+    "playMusic": [
+        "play music",
+        "play"
+    ],
+    "stopMusic": [
+        "stop music",
+        "stop",
+        "pause music",
+        "pause"
     ]
 }
