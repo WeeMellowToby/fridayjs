@@ -22,7 +22,7 @@ export default function Home() {
   var bridgeIP = "192.168.101.53";
   useEffect(() => {
     if(listening == false) {
-      commandSaid(transcript.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""));
+      commandSaid(transcript.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase());
     }
     
   }, [listening])
