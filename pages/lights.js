@@ -35,7 +35,8 @@ function removeLight(id) {
   // retruns the list of lights and a form
   return (
     <div className='ml-20 mt-4'>
-    
+    <h1>Lights useing Hue</h1>
+    <p>To use this feature you will have to go into settings and allow 'insecure content'</p>
     <label>Light name</label>
     <input ref={lightNameRef} type="text" className='border-2 border-orange-400'/>
     <label>Light id</label>
