@@ -29,7 +29,7 @@ function removeLight(id) {
       lightNameRef.current.value = null
       lightIdRef.current.value = null
       setLights(prevLights => {
-          return[...prevLights,{id: id, name: name}]
+         if(prevLights == null) return[{id: id, name: name}]; else return[...prevLights,{id: id, name: name}];
       })
   }
   // retruns the list of lights and a form

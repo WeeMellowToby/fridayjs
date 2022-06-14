@@ -23,6 +23,9 @@ body {
     text-xs font-bold
     transition-all duration-100 scale-0 origin-left;
   }
+  input {
+    @apply text-gray-700;
+  }
   body {
     @apply bg-zinc-700 text-white;
   }
