@@ -38,7 +38,7 @@ export default function Home() {
     setLights(newlights)
     setLightnames(newlightnames)
     // sets the bridge ip
-    //bridgeIP = GetBridgeIp();
+    bridgeIP = GetBridgeIp();
     }
     var newtimetable = JSON.parse(localStorage.getItem(process.env.NEXT_PUBLIC_TIMETABLE_STORAGE))
     if(newtimetable != null) setTimetable(newtimetable); else setTimetable([])
