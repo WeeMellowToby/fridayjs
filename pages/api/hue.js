@@ -10,7 +10,7 @@ export async function GetBridgeIp() {
 }
 export function SetLights(ip,lightId,on) {
     // generates the url for the api call
-    var theUrl = "https://"+ ip + "/api/" + key + "/lights/" + lightId +"/state";
+    var theUrl = "http://"+ ip + "/api/" + key + "/lights/" + lightId +"/state";
     //sends the command to the bridge
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("PUT", theUrl, true);
