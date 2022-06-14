@@ -1,16 +1,16 @@
 const key = `${process.env.NEXT_PUBLIC_HUE_KEY}`
-export function GetBridgeIp() {
+export async function GetBridgeIp() {
     var xmlhttp = new XMLHttpRequest();
     var theUrl = "https://discovery.meethue.com/";
-    xmlhttp.open("GET", theUrl, true);
-    xmlhttp.send(null);
-    var response = xmlhttp.responseText;
+    await xmlhttp.open("GET", theUrl, true);
+    var response = xmlhttp.response;
+    console.log(response);
     return response[0].internalipaddress;
     
 }
 export function SetLights(ip,lightId,on) {
     // generates the url for the api call
-    var theUrl = "http://"+ ip + "/api/" + key + "/lights/" + lightId +"/state";
+    var theUrl = "https://"+ ip + "/api/" + key + "/lights/" + lightId +"/state";
     //sends the command to the bridge
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("PUT", theUrl, true);
